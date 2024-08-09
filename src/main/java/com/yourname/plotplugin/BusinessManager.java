@@ -12,4 +12,8 @@ public class BusinessManager {
     public boolean businessExists(String businessName) {
         return businessBalances.containsKey(businessName);
     }
+
+    public void createBusiness(String businessName, double initialBalance) {
+        businessBalances.put(businessName, initialBalance);
+    }
 }
