@@ -1,8 +1,14 @@
 name: PlotPlugin
 version: 1.0
 main: com.yourname.plotplugin.PlotPlugin
-api-version: 1.13
+api-version: 1.21
 commands:
+  work:
+    description: Work to earn money
+  business:
+    description: Create a business
+  pay:
+    description: Pay another player or business
   createplot:
     description: Creates a 22x22 plot with a sign
     usage: /<command> <plotID>

@@ -4,23 +4,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlotPlugin extends JavaPlugin {
     private PlotManager plotManager;
-    private EconomyManager economyManager; // Correctly initialize EconomyManager
-    private BusinessManager businessManager; // Correctly initialize BusinessManager
+    private EconomyManager economyManager;
+    private BusinessManager businessManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         
-        plotManager = new PlotManager(this); // Pass the PlotPlugin instance
+        plotManager = new PlotManager(this);
 
-        // Initialize the economy manager
-        economyManager = new EconomyManager(); // Correctly initialize EconomyManager
-        businessManager = new BusinessManager(); // Correctly initialize BusinessManager
+        economyManager = new EconomyManager();
+        businessManager = new BusinessManager();
 
         // Register commands
         getCommand("work").setExecutor(new WorkCommand(economyManager));
         getCommand("business").setExecutor(new BusinessCommand(businessManager));
-        getCommand("pay").setExecutor(new PayCommand(economyManager, businessManager)); // Pass both instances
+        getCommand("pay").setExecutor(new PayCommand(economyManager, businessManager));
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
         getCommand("buyplot").setExecutor(new BuyPlotCommand(this));
         getCommand("addeditor").setExecutor(new AddEditorCommand(this));
