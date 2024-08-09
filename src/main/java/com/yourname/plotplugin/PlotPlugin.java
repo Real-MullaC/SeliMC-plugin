@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlotPlugin extends JavaPlugin {
     private PlotManager plotManager;
+    private EconomyManager economyManager;
 
     @Override
     public void onEnable() {
@@ -11,6 +12,13 @@ public class PlotPlugin extends JavaPlugin {
         
         plotManager = new PlotManager(this); // Pass the PlotPlugin instance
 
+        // Initialize the economy manager
+        economyManager = new EconomyManager();
+
+        // Register commands
+        getCommand("work").setExecutor(new WorkCommand(economyManager));
+        getCommand("business").setExecutor(new BusinessCommand(economyManager));
+        getCommand("pay").setExecutor(new PayCommand(economyManager));
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
         getCommand("buyplot").setExecutor(new BuyPlotCommand(this));
         getCommand("addeditor").setExecutor(new AddEditorCommand(this));
@@ -25,5 +33,9 @@ public class PlotPlugin extends JavaPlugin {
 
     public PlotManager getPlotManager() {
         return plotManager;
+    }
+
+    public EconomyManager getEconomyManager() {
+        return economyManager;
     }
 }
