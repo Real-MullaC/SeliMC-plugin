@@ -10,10 +10,11 @@ import com.yourname.plotplugin.EconomyManager; // Add this import
 import com.yourname.plotplugin.BusinessManager; // Add this import
 
 public class PayCommand implements CommandExecutor {
-    private final EconomyManager economyManager; // Add this line
-    private final BusinessManager businessManager; // Add this line
+    private final EconomyManager economyManager;
+    private final BusinessManager businessManager; // Add BusinessManager
 
-    public PayCommand(EconomyManager economyManager, BusinessManager businessManager) { // Modify constructor
+    // Constructor that accepts both EconomyManager and BusinessManager
+    public PayCommand(EconomyManager economyManager, BusinessManager businessManager) {
         this.economyManager = economyManager; // Initialize the instance
         this.businessManager = businessManager; // Initialize the instance
     }
@@ -49,14 +50,7 @@ public class PayCommand implements CommandExecutor {
             return true;
         }
 
-        // If the target is not a player, check if it's a business
-        if (businessManager.businessExists(targetName)) {
-            // Handle payment to a business (you can implement this logic)
-            payer.sendMessage("Payment to businesses is not yet implemented.");
-            return true;
-        }
-
-        payer.sendMessage("Player or business not found.");
+        payer.sendMessage("Player not found or not online.");
         return true;
     }
 }
