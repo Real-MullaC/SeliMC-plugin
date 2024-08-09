@@ -106,4 +106,12 @@ public class PlotManager {
     public boolean plotExists(String plotID) {
         return plots.containsKey(plotID);
     }
+
+    public String getPlotOwner(String plotID) {
+        PlotData plotData = plots.get(plotID);
+        if (plotData != null) {
+            return plotData.getOwnerName(); // Ensure you are returning a String
+        }
+        return null; // Or handle the case where the plot does not exist
+    }
 }
