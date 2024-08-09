@@ -28,7 +28,7 @@ public class WorkCommand implements CommandExecutor {
         // Check cooldown
         if (cooldowns.containsKey(player)) {
             long lastUsed = cooldowns.get(player);
-            long cooldownTime = TimeUnit.MINUTES.toMillis(1); // 1 minute cooldown
+            long cooldownTime = TimeUnit.MINUTES.toMillis(60); // 1 minute cooldown
             if (System.currentTimeMillis() - lastUsed < cooldownTime) {
                 long remainingTime = cooldownTime - (System.currentTimeMillis() - lastUsed);
                 player.sendMessage("You must wait " + (remainingTime / 1000) + " seconds before using this command again.");
