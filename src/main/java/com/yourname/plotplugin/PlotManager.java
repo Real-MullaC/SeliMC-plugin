@@ -2,6 +2,7 @@ package com.yourname.plotplugin;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.Location; // Ensure this import is present
 
 import java.io.File;
 import java.io.IOException;
