@@ -15,5 +15,9 @@ public class PlotData {
         this.size = size;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
     // Getters and setters...
 }
