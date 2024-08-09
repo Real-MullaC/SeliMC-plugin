@@ -1,0 +1,18 @@
+name: PlotPlugin
+version: 1.0
+main: com.yourname.plotplugin.PlotPlugin
+api-version: 1.13
+commands:
+  createplot:
+    description: Creates a 22x22 plot with a sign
+    usage: /<command> <plotID>
+    permission: plotplugin.createplot
+  buyplot:
+    description: Allows a player to buy a plot
+    usage: /<command> <plotID>
+  addeditor:
+    description: Adds an editor to a plot
+    usage: /<command> <plotID> <playerName>
+  towntp:
+    description: Teleports a player to a plot
+    usage: /<command> <plotID>
