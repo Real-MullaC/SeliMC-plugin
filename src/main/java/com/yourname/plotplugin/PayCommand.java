@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.yourname.plotplugin.BusinessManager; // Add this import
+
 public class PayCommand implements CommandExecutor {
     private final EconomyManager economyManager;
 

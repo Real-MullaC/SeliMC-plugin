@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.yourname.plotplugin.PlotData; // Add this import if needed
+
 public class PlotManager {
     private final PlotPlugin plugin;
     private final File plotDataFile;
