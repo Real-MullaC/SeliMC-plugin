@@ -15,7 +15,7 @@ public class PlotPlugin extends JavaPlugin {
         plotManager = new PlotManager(this);
 
         File dataFile = new File(getDataFolder(), "balances.yml");
-        economyManager = new EconomyManager(dataFile);
+        economyManager = new EconomyManager(dataFile); // This will now work
         businessManager = new BusinessManager();
 
         // Register commands
