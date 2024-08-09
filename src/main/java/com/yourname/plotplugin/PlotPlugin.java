@@ -14,13 +14,13 @@ public class PlotPlugin extends JavaPlugin {
 
         try {
             discordManager = new DiscordManager(token, channelId);
-        } catch (InterruptedException e) {
-            getLogger().severe("Failed to initialize Discord connection: " + e.getMessage());
+        } catch (Exception e) {
+            getLogger().severe("Failed to initialize DiscordManager: " + e.getMessage());
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
-        plotManager = new PlotManager(this);
+        plotManager = new PlotManager();
 
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
         getCommand("buyplot").setExecutor(new BuyPlotCommand(this));

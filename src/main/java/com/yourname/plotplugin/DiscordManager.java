@@ -13,20 +13,29 @@ public class DiscordManager {
     private final String channelId;
     private final Map<String, String> plotMessages;
 
-    public DiscordManager(String token, String channelId) throws InterruptedException {
+    public DiscordManager(String token, String channelId) throws Exception {
         this.jda = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
-                .build()
-                .awaitReady();
+                .build();
+        this.jda.awaitReady(); // Wait for JDA to be ready
         this.channelId = channelId;
         this.plotMessages = new HashMap<>();
     }
 
     public void sendPlotCreationMessage(String plotId) {
+        if (channelId == null || plotId == null) return; // {{ edit_1 }}
+        
         TextChannel channel = jda.getTextChannelById(channelId);
-        if (channel != null) {
+        if (channel == null) {
+            System.err.println("Channel not found: " + channelId); // {{ edit_2 }}
+            return;
+        }
+
+        try {
             channel.sendMessage("New plot created: " + plotId + " (FOR SALE)")
                     .queue(message -> plotMessages.put(plotId, message.getId()));
+        } catch (Exception e) {
+            System.err.println("Failed to send message to Discord: " + e.getMessage()); // {{ edit_4 }}
         }
     }
 

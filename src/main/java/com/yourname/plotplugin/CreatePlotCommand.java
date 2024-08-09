@@ -37,30 +37,21 @@ public class CreatePlotCommand implements CommandExecutor {
         }
 
         String plotID = args[0];
-        Location playerLocation = player.getLocation();
 
-        // Create the 22x22 plot
-        for (int x = 0; x < 22; x++) {
-            for (int z = 0; z < 22; z++) {
-                Block block = playerLocation.getWorld().getBlockAt(playerLocation.getBlockX() + x, playerLocation.getBlockY() - 1, playerLocation.getBlockZ() + z);
-                block.setType(Material.GRASS_BLOCK);
-            }
+        if (plotID == null || plotID.isEmpty()) {
+            player.sendMessage("Plot ID cannot be null or empty.");
+            return true;
         }
 
-        // Place the sign
-        Block signBlock = playerLocation.getWorld().getBlockAt(playerLocation.getBlockX(), playerLocation.getBlockY(), playerLocation.getBlockZ());
-        signBlock.setType(Material.OAK_SIGN);
-        Sign sign = (Sign) signBlock.getState();
-        sign.setLine(0, "Plot ID: " + plotID);
-        sign.setLine(1, "FOR SALE");
-        sign.update();
+        try {
+            plugin.getPlotManager().addPlot(plotID, player.getName());
+            player.sendMessage("Plot " + plotID + " has been created successfully.");
+            plugin.getDiscordManager().sendPlotCreationMessage(plotID);
+        } catch (Exception e) {
+            player.sendMessage("An error occurred while creating the plot.");
+            System.err.println("Error creating plot: " + e.getMessage());
+        }
 
-        // After creating the plot and sign
-        plugin.getPlotManager().setPlotOwner(plotID, "FOR SALE");
-        plugin.getPlotManager().setPlotLocation(plotID, playerLocation);
-        plugin.getDiscordManager().sendPlotCreationMessage(plotID);
-
-        player.sendMessage("Plot " + plotID + " has been created successfully!");
         return true;
     }
 }

@@ -32,20 +32,20 @@ public class AddEditorCommand implements CommandExecutor {
 
         Player editor = Bukkit.getPlayer(editorName);
         if (editor == null) {
-            owner.sendMessage("Player " + editorName + " is not online or doesn't exist.");
+            owner.sendMessage(String.format("Player %s is not online or doesn't exist.", editorName));
             return true;
         }
 
         // Check if the plot exists and the sender is the owner
-        if (!plugin.getPlotManager().isPlotOwner(plotID, owner.getName())) {
-            owner.sendMessage("You don't own plot " + plotID + " or it doesn't exist.");
+        if (plugin.getPlotManager() == null || !plugin.getPlotManager().isPlotOwner(plotID, owner.getName())) {
+            owner.sendMessage(String.format("You don't own plot %s or it doesn't exist.", plotID));
             return true;
         }
 
         // Add the editor to the plot
         plugin.getPlotManager().addEditor(plotID, editor.getName());
-        owner.sendMessage("Added " + editorName + " as an editor to plot " + plotID + ".");
-        editor.sendMessage("You have been added as an editor to plot " + plotID + ".");
+        owner.sendMessage(String.format("Added %s as an editor to plot %s.", editorName, plotID));
+        editor.sendMessage(String.format("You have been added as an editor to plot %s.", plotID));
 
         return true;
     }

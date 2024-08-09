@@ -7,12 +7,15 @@ import org.bukkit.Location; // Ensure this import is present
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlotManager {
     private final PlotPlugin plugin;
     private final File plotDataFile;
     private FileConfiguration plotData;
+    private final Map<String, String> plots = new HashMap<>(); // plotID -> ownerName
 
     public PlotManager(PlotPlugin plugin) {
         this.plugin = plugin;
@@ -36,15 +39,19 @@ public class PlotManager {
     }
 
     public boolean isPlotOwner(String plotID, String playerName) {
-        return playerName.equals(plotData.getString(plotID + ".owner"));
+        if (plotID == null || playerName == null) return false;
+        return playerName.equals(plots.get(plotID));
     }
 
     public void setPlotOwner(String plotID, String playerName) {
+        if (plotID == null || playerName == null) return;
+        plots.put(plotID, playerName);
         plotData.set(plotID + ".owner", playerName);
         savePlotData();
     }
 
     public void addEditor(String plotID, String editorName) {
+        if (plotID == null || editorName == null) return;
         List<String> editors = plotData.getStringList(plotID + ".editors");
         if (!editors.contains(editorName)) {
             editors.add(editorName);

@@ -10,9 +10,12 @@ commands:
   buyplot:
     description: Allows a player to buy a plot
     usage: /<command> <plotID>
+    permission: plotplugin.buyplot
   addeditor:
     description: Adds an editor to a plot
     usage: /<command> <plotID> <playerName>
+    permission: plotplugin.addeditor
   towntp:
-    description: Teleports a player to a plot
-    usage: /<command> <plotID>
+    description: Teleports a player to a specified town from the config file
+    usage: /<command> <townName>
+    permission: plotplugin.towntp
