@@ -51,8 +51,6 @@ public class BuyPlotCommand implements CommandExecutor {
         plotSign.setLine(2, player.getName());
         plotSign.update();
 
-        // Update the Discord message
-        plugin.getDiscordManager().updatePlotPurchaseMessage(plotID, player.getName());
 
         player.sendMessage("Congratulations! You are now the owner of plot " + plotID + ".");
         return true;
