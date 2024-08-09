@@ -42,8 +42,15 @@ public class EconomyManager {
 
     public void saveBalances() {
         Yaml yaml = new Yaml();
+        Map<String, Double> stringBalances = new HashMap<>();
+        
+        // Convert UUIDs to Strings for saving
+        for (Map.Entry<UUID, Double> entry : balances.entrySet()) {
+            stringBalances.put(entry.getKey().toString(), entry.getValue());
+        }
+
         try (FileWriter writer = new FileWriter(dataFile)) {
-            yaml.dump(balances, writer); // Save balances to file
+            yaml.dump(stringBalances, writer); // Save balances to file
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,9 +60,12 @@ public class EconomyManager {
         if (dataFile.exists()) {
             Yaml yaml = new Yaml();
             try (InputStream inputStream = Files.newInputStream(dataFile.toPath())) {
-                Map<UUID, Double> loadedBalances = yaml.load(inputStream);
+                Map<String, Double> loadedBalances = yaml.load(inputStream);
                 if (loadedBalances != null) {
-                    balances.putAll(loadedBalances); // Load balances from file
+                    // Convert Strings back to UUIDs
+                    for (Map.Entry<String, Double> entry : loadedBalances.entrySet()) {
+                        balances.put(UUID.fromString(entry.getKey()), entry.getValue());
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
