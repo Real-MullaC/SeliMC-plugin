@@ -28,7 +28,7 @@ public class PayCommand implements CommandExecutor {
         Player payer = (Player) sender;
 
         if (args.length != 2) {
-            payer.sendMessage("Usage: /pay <player|business> <amount>");
+            payer.sendMessage("Usage: /pay <player> <amount>");
             return true;
         }
 
@@ -45,7 +45,8 @@ public class PayCommand implements CommandExecutor {
         // Check if the target is a player
         Player receiver = Bukkit.getPlayer(targetName);
         if (receiver != null && receiver.isOnline()) {
-            return economyManager.pay(payer, receiver, amount);
+            economyManager.pay(payer, receiver, amount); // Call the pay method
+            return true;
         }
 
         // If the target is not a player, check if it's a business

@@ -60,4 +60,19 @@ public class EconomyManager {
             }
         }
     }
+
+    public void pay(Player payer, Player receiver, double amount) {
+        UUID payerId = payer.getUniqueId();
+        UUID receiverId = receiver.getUniqueId();
+
+        // Check if the payer has enough balance
+        if (getBalance(payer) >= amount) {
+            subtractMoney(payer, amount); // Subtract from payer
+            addMoney(receiver, amount); // Add to receiver
+            payer.sendMessage("You paid $" + amount + " to " + receiver.getName() + ".");
+            receiver.sendMessage("You received $" + amount + " from " + payer.getName() + ".");
+        } else {
+            payer.sendMessage("You do not have enough balance to make this payment.");
+        }
+    }
 }
