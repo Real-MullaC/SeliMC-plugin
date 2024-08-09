@@ -9,7 +9,7 @@ public class BalanceCommand implements CommandExecutor {
     private final EconomyManager economyManager;
 
     public BalanceCommand(EconomyManager economyManager) {
-        this.economyManager = economyManager;
+        this.economyManager = economyManager; // Initialize the instance
     }
 
     @Override

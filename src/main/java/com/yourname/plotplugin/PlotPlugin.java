@@ -21,9 +21,9 @@ public class PlotPlugin extends JavaPlugin {
         // Register commands
         getCommand("work").setExecutor(new WorkCommand(economyManager));
         getCommand("business").setExecutor(new BusinessCommand(businessManager));
-        getCommand("pay").setExecutor(new PayCommand(economyManager, businessManager));
+        getCommand("pay").setExecutor(new PayCommand(economyManager));
         getCommand("balance").setExecutor(new BalanceCommand(economyManager));
-        getCommand("update").setExecutor(new UpdateCommand(getFile()));
+        getCommand("update").setExecutor(new UpdateCommand(getFile())); // Register update command
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
         getCommand("buyplot").setExecutor(new BuyPlotCommand(this));
         getCommand("addeditor").setExecutor(new AddEditorCommand(this));

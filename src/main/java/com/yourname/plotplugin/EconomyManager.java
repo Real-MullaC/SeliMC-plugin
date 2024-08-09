@@ -19,29 +19,31 @@ public class EconomyManager {
     // Constructor that accepts a File parameter
     public EconomyManager(File dataFile) {
         this.dataFile = dataFile;
-        loadBalances();
+        loadBalances(); // Load balances from file
     }
 
     public void addMoney(Player player, double amount) {
         UUID playerId = player.getUniqueId();
-        balances.put(playerId, getBalance(player) + amount);
+        double newBalance = getBalance(player) + amount; // Calculate new balance
+        balances.put(playerId, newBalance); // Update balance
+        System.out.println("Added " + amount + " to " + player.getName() + ". New balance: " + newBalance);
         saveBalances(); // Save balances after adding money
     }
 
     public void subtractMoney(Player player, double amount) {
         UUID playerId = player.getUniqueId();
-        balances.put(playerId, getBalance(player) - amount);
+        balances.put(playerId, getBalance(player) - amount); // Subtract from balance
         saveBalances(); // Save balances after subtracting money
     }
 
     public double getBalance(Player player) {
-        return balances.getOrDefault(player.getUniqueId(), 0.0);
+        return balances.getOrDefault(player.getUniqueId(), 0.0); // Return balance or 0 if not found
     }
 
     public void saveBalances() {
         Yaml yaml = new Yaml();
         try (FileWriter writer = new FileWriter(dataFile)) {
-            yaml.dump(balances, writer);
+            yaml.dump(balances, writer); // Save balances to file
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +55,7 @@ public class EconomyManager {
             try (InputStream inputStream = Files.newInputStream(dataFile.toPath())) {
                 Map<UUID, Double> loadedBalances = yaml.load(inputStream);
                 if (loadedBalances != null) {
-                    balances.putAll(loadedBalances);
+                    balances.putAll(loadedBalances); // Load balances from file
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -13,7 +13,7 @@ public class WorkCommand implements CommandExecutor {
     private final HashMap<Player, Long> cooldowns = new HashMap<>(); // Store cooldowns
 
     public WorkCommand(EconomyManager economyManager) {
-        this.economyManager = economyManager;
+        this.economyManager = economyManager; // Initialize the instance
     }
 
     @Override
@@ -42,7 +42,7 @@ public class WorkCommand implements CommandExecutor {
         player.sendMessage("You worked and earned $" + earnedAmount + "! Your new balance is $" + economyManager.getBalance(player) + ".");
 
         // Update cooldown
-        cooldowns.put(player, System.currentTimeMillis());
+        cooldowns.put(player, System.currentTimeMillis()); // Record the current time
         return true;
     }
 }
