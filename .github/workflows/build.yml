@@ -37,13 +37,14 @@ jobs:
         TAG_NAME="release-$(date +%Y-%m-%d)"
         git tag -a "$TAG_NAME" -m "Release on $(date +%Y-%m-%d)"
         git push origin "$TAG_NAME"
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV  # Set the tag name as an environment variable
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ steps.create_tag.outputs.tag_name }}  # Use the created tag name
-        name: Release ${{ steps.create_tag.outputs.tag_name }}  # Name of the release
+        tag_name: ${{ env.TAG_NAME }}  # Use the environment variable for the tag name
+        name: Release ${{ env.TAG_NAME }}  # Name of the release
         draft: false
         prerelease: false
         files: target/*.jar  # Adjust the path if necessary
