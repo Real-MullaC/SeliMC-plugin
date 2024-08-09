@@ -1,13 +1,14 @@
 package com.yourname.plotplugin;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -15,8 +16,8 @@ import java.util.UUID;
 public class EconomyManager {
     private final HashMap<UUID, Double> balances = new HashMap<>();
     private final File dataFile;
+    private final Gson gson = new Gson(); // Create a Gson instance
 
-    // Constructor that accepts a File parameter
     public EconomyManager(File dataFile) {
         this.dataFile = dataFile;
         loadBalances(); // Load balances from file
@@ -41,16 +42,8 @@ public class EconomyManager {
     }
 
     public void saveBalances() {
-        Yaml yaml = new Yaml();
-        Map<String, Double> stringBalances = new HashMap<>();
-        
-        // Convert UUIDs to Strings for saving
-        for (Map.Entry<UUID, Double> entry : balances.entrySet()) {
-            stringBalances.put(entry.getKey().toString(), entry.getValue());
-        }
-
         try (FileWriter writer = new FileWriter(dataFile)) {
-            yaml.dump(stringBalances, writer); // Save balances to file
+            gson.toJson(balances, writer); // Save balances to JSON file
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,14 +51,11 @@ public class EconomyManager {
 
     public void loadBalances() {
         if (dataFile.exists()) {
-            Yaml yaml = new Yaml();
-            try (InputStream inputStream = Files.newInputStream(dataFile.toPath())) {
-                Map<String, Double> loadedBalances = yaml.load(inputStream);
+            try (FileReader reader = new FileReader(dataFile)) {
+                Type type = new TypeToken<HashMap<UUID, Double>>() {}.getType();
+                Map<UUID, Double> loadedBalances = gson.fromJson(reader, type);
                 if (loadedBalances != null) {
-                    // Convert Strings back to UUIDs
-                    for (Map.Entry<String, Double> entry : loadedBalances.entrySet()) {
-                        balances.put(UUID.fromString(entry.getKey()), entry.getValue());
-                    }
+                    balances.putAll(loadedBalances); // Load balances from JSON file
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -14,14 +14,14 @@ public class PlotPlugin extends JavaPlugin {
         
         plotManager = new PlotManager(this);
 
-        File dataFile = new File(getDataFolder(), "balances.yml");
-        economyManager = new EconomyManager(dataFile); // This will now work
+        File dataFile = new File(getDataFolder(), "balances.json"); // Create a JSON file for balances
+        economyManager = new EconomyManager(dataFile); // Initialize EconomyManager
         businessManager = new BusinessManager(); // Initialize BusinessManager
 
         // Register commands
         getCommand("work").setExecutor(new WorkCommand(economyManager));
         getCommand("business").setExecutor(new BusinessCommand(businessManager));
-        getCommand("pay").setExecutor(new PayCommand(economyManager, businessManager)); // Pass both managers
+        getCommand("pay").setExecutor(new PayCommand(economyManager));
         getCommand("balance").setExecutor(new BalanceCommand(economyManager));
         getCommand("update").setExecutor(new UpdateCommand(getFile())); // Register update command
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
