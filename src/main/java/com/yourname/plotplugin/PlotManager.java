@@ -18,7 +18,7 @@ public class PlotManager {
     private final PlotPlugin plugin;
     private final File plotDataFile;
     private FileConfiguration plotData;
-    private final Map<String, String> plots = new HashMap<>(); // plotID -> ownerName
+    private final Map<String, PlotData> plots = new HashMap<>(); // plotID -> PlotData
 
     public PlotManager(PlotPlugin plugin) {
         this.plugin = plugin;
@@ -43,12 +43,17 @@ public class PlotManager {
 
     public boolean isPlotOwner(String plotID, String playerName) {
         if (plotID == null || playerName == null) return false;
-        return playerName.equals(plots.get(plotID));
+        PlotData plotData = plots.get(plotID);
+        if (plotData != null) {
+            return plotData.getOwnerName().equals(playerName);
+        }
+        return false;
     }
 
     public void setPlotOwner(String plotID, String playerName) {
         if (plotID == null || playerName == null) return;
-        plots.put(plotID, playerName);
+        PlotData plotData = new PlotData(playerName, 0, 0, 0, 0);
+        plots.put(plotID, plotData);
         plotData.set(plotID + ".owner", playerName);
         savePlotData();
     }

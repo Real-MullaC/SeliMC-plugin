@@ -6,13 +6,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.yourname.plotplugin.BusinessManager; // Add this import
+import com.yourname.plotplugin.EconomyManager; // Add this import
 
 public class PayCommand implements CommandExecutor {
-    private final BusinessManager businessManager;
+    private final EconomyManager economyManager; // Add this line
 
-    public PayCommand(BusinessManager businessManager) {
-        this.businessManager = businessManager; // Initialize the instance
+    public PayCommand(EconomyManager economyManager) { // Modify constructor
+        this.economyManager = economyManager; // Initialize the instance
     }
 
     @Override
