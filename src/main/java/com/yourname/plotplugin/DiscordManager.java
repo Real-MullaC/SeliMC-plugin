@@ -15,7 +15,7 @@ public class DiscordManager {
 
     public DiscordManager(String token, String channelId) throws Exception {
         this.jda = JDABuilder.createDefault(token)
-                .enableIntents(GatewayIntent.MESSAGE_CONTENT)
+                .enableIntents(GatewayIntent.GUILD_MESSAGES) // Ensure you have the correct intents
                 .build();
         this.jda.awaitReady(); // Wait for JDA to be ready
         this.channelId = channelId;
