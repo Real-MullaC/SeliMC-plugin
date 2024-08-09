@@ -23,29 +23,24 @@ public class BusinessCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        if (args.length != 1) {
-            player.sendMessage("Usage: /business <businessName>");
+        if (args.length != 2) {
+            player.sendMessage("Usage: /business <businessName> <initialBalance>");
             return true;
         }
 
         String businessName = args[0];
+        double initialBalance;
 
-        if (businessManager.businessExists(businessName)) {
-            player.sendMessage("This business name is already taken.");
+        try {
+            initialBalance = Double.parseDouble(args[1]);
+        } catch (NumberFormatException e) {
+            player.sendMessage("Please enter a valid initial balance.");
             return true;
         }
 
-        businessManager.createBusiness(businessName, 0.0);
-        player.sendMessage("You have created a business named " + businessName + "!");
+        // Create the business
+        businessManager.createBusiness(businessName, initialBalance);
+        player.sendMessage("Business " + businessName + " created with an initial balance of $" + initialBalance + ".");
         return true;
-    }
-
-    public static boolean businessExists(String businessName) {
-        // Check if the business exists in your data structure
-        return businessBalances.containsKey(businessName);
-    }
-
-    public void payBusiness(String businessName, double amount) {
-        businessBalances.put(businessName, businessBalances.getOrDefault(businessName, 0.0) + amount);
     }
 }
