@@ -51,6 +51,13 @@ public class PlotManager {
         savePlotData();
     }
 
+    public void addPlot(String plotID, String ownerName) {
+        if (plotID == null || ownerName == null) return;
+        plots.put(plotID, ownerName);
+        plotData.set(plotID + ".owner", ownerName);
+        savePlotData();
+    }
+
     public void addEditor(String plotID, String editorName) {
         if (plotID == null || editorName == null) return;
         List<String> editors = plotData.getStringList(plotID + ".editors");
