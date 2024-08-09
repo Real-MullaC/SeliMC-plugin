@@ -1,6 +1,7 @@
 package com.yourname.plotplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import java.io.File; // Add this import
 
 public class PlotPlugin extends JavaPlugin {
     private PlotManager plotManager;
