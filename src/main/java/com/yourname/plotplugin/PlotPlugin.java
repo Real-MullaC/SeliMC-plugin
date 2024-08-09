@@ -16,12 +16,12 @@ public class PlotPlugin extends JavaPlugin {
 
         File dataFile = new File(getDataFolder(), "balances.yml");
         economyManager = new EconomyManager(dataFile); // This will now work
-        businessManager = new BusinessManager();
+        businessManager = new BusinessManager(); // Initialize BusinessManager
 
         // Register commands
         getCommand("work").setExecutor(new WorkCommand(economyManager));
         getCommand("business").setExecutor(new BusinessCommand(businessManager));
-        getCommand("pay").setExecutor(new PayCommand(economyManager));
+        getCommand("pay").setExecutor(new PayCommand(economyManager, businessManager)); // Pass both managers
         getCommand("balance").setExecutor(new BalanceCommand(economyManager));
         getCommand("update").setExecutor(new UpdateCommand(getFile())); // Register update command
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
