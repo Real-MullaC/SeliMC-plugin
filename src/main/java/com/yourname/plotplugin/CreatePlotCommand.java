@@ -46,7 +46,6 @@ public class CreatePlotCommand implements CommandExecutor {
         try {
             plugin.getPlotManager().addPlot(plotID, player.getName());
             player.sendMessage("Plot " + plotID + " has been created successfully.");
-            plugin.getDiscordManager().sendPlotCreationMessage(plotID);
         } catch (Exception e) {
             player.sendMessage("An error occurred while creating the plot.");
             System.err.println("Error creating plot: " + e.getMessage());
