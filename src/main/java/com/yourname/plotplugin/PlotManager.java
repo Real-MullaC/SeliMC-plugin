@@ -51,11 +51,9 @@ public class PlotManager {
         savePlotData();
     }
 
-    public void addPlot(String plotID, String ownerName) {
-        if (plotID == null || ownerName == null) return;
-        plots.put(plotID, ownerName);
-        plotData.set(plotID + ".owner", ownerName);
-        savePlotData();
+    public void addPlot(String plotID, String ownerName, int startX, int startY, int startZ, int size) {
+        PlotData plotData = new PlotData(ownerName, startX, startY, startZ, size);
+        plots.put(plotID, plotData);
     }
 
     public void addEditor(String plotID, String editorName) {
@@ -96,5 +94,9 @@ public class PlotManager {
         double z = plotData.getDouble(plotID + ".z");
 
         return new Location(world, x, y, z);
+    }
+
+    public boolean plotExists(String plotID) {
+        return plots.containsKey(plotID);
     }
 }
