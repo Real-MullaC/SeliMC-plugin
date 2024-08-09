@@ -54,7 +54,7 @@ public class PlotManager {
         if (plotID == null || playerName == null) return;
         PlotData plotData = new PlotData(playerName, 0, 0, 0, 0);
         plots.put(plotID, plotData);
-        plotData.set(plotID + ".owner", playerName);
+        plotData.setOwnerName(playerName); // Use the setter method
         savePlotData();
     }
 
