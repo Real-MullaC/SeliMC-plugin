@@ -15,9 +15,45 @@ public class PlotData {
         this.size = size;
     }
 
+    // Getters
     public String getOwnerName() {
         return ownerName;
     }
 
-    // Getters and setters...
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getStartZ() {
+        return startZ;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    // Setters
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
+
+    public void setStartY(int startY) {
+        this.startY = startY;
+    }
+
+    public void setStartZ(int startZ) {
+        this.startZ = startZ;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

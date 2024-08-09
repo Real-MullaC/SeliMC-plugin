@@ -7,12 +7,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.yourname.plotplugin.EconomyManager; // Add this import
+import com.yourname.plotplugin.BusinessManager; // Add this import
 
 public class PayCommand implements CommandExecutor {
     private final EconomyManager economyManager; // Add this line
+    private final BusinessManager businessManager; // Add this line
 
-    public PayCommand(EconomyManager economyManager) { // Modify constructor
+    public PayCommand(EconomyManager economyManager, BusinessManager businessManager) { // Modify constructor
         this.economyManager = economyManager; // Initialize the instance
+        this.businessManager = businessManager; // Initialize the instance
     }
 
     @Override
@@ -46,7 +49,6 @@ public class PayCommand implements CommandExecutor {
         }
 
         // If the target is not a player, check if it's a business
-        // Assuming you have a method to check if a business exists
         if (businessManager.businessExists(targetName)) {
             // Handle payment to a business (you can implement this logic)
             payer.sendMessage("Payment to businesses is not yet implemented.");
