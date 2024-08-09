@@ -1,0 +1,22 @@
+name: Create Tag
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch if it's not 'main'
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Create Tag with Today's Date
+      run: |
+        TAG_NAME="release-$(date +%Y-%m-%d)"
+        git tag -a "$TAG_NAME" -m "Release on $(date +%Y-%m-%d)"
+        git push origin "$TAG_NAME"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub Actions
