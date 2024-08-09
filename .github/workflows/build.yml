@@ -1,12 +1,15 @@
-name: Build and Release
+name: Create Tag and Release
 
 on:
   push:
-    tags:
-      - 'v*'  # Trigger on version tags (e.g., v1.0.0)
+    branches:
+      - main  # Change this to your default branch if it's not 'main'
+
+permissions:
+  contents: write  # Allow the workflow to write to the repository
 
 jobs:
-  build:
+  create-tag-and-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,21 +24,26 @@ jobs:
     - name: Build with Maven
       run: mvn clean package
 
+    - name: Set up Git user
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+
+    - name: Create Tag with Today's Date
+      id: create_tag
+      run: |
+        TAG_NAME="release-$(date +%Y-%m-%d)"
+        git tag -a "$TAG_NAME" -m "Release on $(date +%Y-%m-%d)"
+        git push origin "$TAG_NAME"
+
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref }}  # Use the tag name for the release
-        release_name: Release ${{ github.ref }}  # Name of the release
+        tag_name: ${{ steps.create_tag.outputs.tag_name }}  # Use the created tag name
+        release_name: Release ${{ steps.create_tag.outputs.tag_name }}  # Name of the release
         draft: false
         prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub Actions
-
-    - name: Upload JAR file
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: ${{ github.ref }}
         files: target/*.jar  # Adjust the path if necessary
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Automatically provided by GitHub Actions
