@@ -9,6 +9,10 @@ commands:
     description: Create a business
   pay:
     description: Pay another player or business
+  balance:
+    description: Check your current balance
+  update:
+    description: Update the plugin to the latest version
   createplot:
     description: Creates a 22x22 plot with a sign
     usage: /<command> <plotID>
