@@ -20,7 +20,7 @@ public class PlotPlugin extends JavaPlugin {
             return;
         }
 
-        plotManager = new PlotManager();
+        plotManager = new PlotManager(this); // Pass the PlotPlugin instance
 
         getCommand("createplot").setExecutor(new CreatePlotCommand(this));
         getCommand("buyplot").setExecutor(new BuyPlotCommand(this));

@@ -2,7 +2,7 @@ package com.yourname.plotplugin;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.entities.TextChannel; // Added this import
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import java.util.HashMap;
