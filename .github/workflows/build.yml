@@ -43,7 +43,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ steps.create_tag.outputs.tag_name }}  # Use the created tag name
-        release_name: Release ${{ steps.create_tag.outputs.tag_name }}  # Name of the release
+        name: Release ${{ steps.create_tag.outputs.tag_name }}  # Name of the release
         draft: false
         prerelease: false
         files: target/*.jar  # Adjust the path if necessary
